@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <RootNamespace>NfseNacional.PdfGenerator.Lib</RootNamespace>
+    <AssemblyName>NfseNacional.PdfGenerator.Lib</AssemblyName>
+
+    <!-- Configurações do Pacote NuGet -->
+    <PackageId>NfseNacional.PdfGenerator</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Felipe Arceno</Authors>
+    <Company>Felipe Arceno</Company>
+    <Product>NfseNacional.PdfGenerator</Product>
+    <Title>NFS-e Nacional - Gerador de DANFSe PDF</Title>
+    <Description>Biblioteca .NET para leitura de XML de retorno e geração do DANFSe (Documento Auxiliar da NFS-e Nacional) em PDF no padrão Sefin Nacional / DPS. Suporta múltiplos municípios, brasões personalizados, QR Code dinâmico e gestão de histórico.</Description>
+    <Copyright>Copyright © Felipe Arceno 2026</Copyright>
+    <PackageTags>nfse;danfse;nacional;sefin;dps;pdf;pdfsharp;qrcoder;brasil;tributario</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PDFsharp" Version="6.2.0" />
+    <PackageReference Include="QRCoder" Version="1.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+</Project>

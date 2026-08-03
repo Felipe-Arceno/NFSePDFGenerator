@@ -1,0 +1,29 @@
+## Ignored Visual Studio / .NET build outputs
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]uild/
+*.user
+*.userosscache
+*.sln.docstates
+
+## Visual Studio Cache / Temporary Files
+.vs/
+*.suo
+*.user
+*.userHost
+*.sln.docstates
+*.userprefs
+
+## Package / Output directories
+*.nupkg
+*.snupkg
+nupkg/
+
+## OS generated files
+[Tt]humbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
