@@ -7,7 +7,7 @@ using NfseNacional.PdfGenerator.Lib.Helpers;
 
 namespace NfseNacional.PdfGenerator.Lib.Pdf
 {
-    public class DanfsePdfGenerator
+    public partial class DanfsePdfGenerator
     {
         private XFont _fontTitleBold;
         private XFont _fontLabelBold;
@@ -48,7 +48,14 @@ namespace NfseNacional.PdfGenerator.Lib.Pdf
             }
         }
 
-        public byte[] GeneratePdfBytes(NfseRetorno nfse, DadosMunicipio dadosMun = null, bool isHomologacao = true)
+        /// <summary>
+        /// Gera o PDF do DANFSe em memória.
+        /// </summary>
+        /// <param name="nfse">Retorno da NFS-e (já parseado).</param>
+        /// <param name="dadosMun">Dados do município (logo/brasão). Usado principalmente no layout v1.0.</param>
+        /// <param name="isHomologacao">Se verdadeiro, imprime a marca "SEM VALIDADE JURÍDICA".</param>
+        /// <param name="versao">Versão do layout do DANFSe. Default: <see cref="DanfseVersao.V2_0"/>.</param>
+        public byte[] GeneratePdfBytes(NfseRetorno nfse, DadosMunicipio dadosMun = null, bool isHomologacao = true, DanfseVersao versao = DanfseVersao.V2_0)
         {
             if (nfse == null || nfse.InfNFSe == null)
                 throw new ArgumentNullException(nameof(nfse));
@@ -67,7 +74,10 @@ namespace NfseNacional.PdfGenerator.Lib.Pdf
 
                 using (var gfx = XGraphics.FromPdfPage(page))
                 {
-                    RenderPage(gfx, nfse.InfNFSe, dadosMun, isHomologacao);
+                    if (versao == DanfseVersao.V1_0)
+                        RenderPageV1(gfx, nfse.InfNFSe, dadosMun, isHomologacao);
+                    else
+                        RenderPageV2(gfx, nfse.InfNFSe, dadosMun, isHomologacao);
                 }
 
                 using (var ms = new MemoryStream())
@@ -78,13 +88,17 @@ namespace NfseNacional.PdfGenerator.Lib.Pdf
             }
         }
 
-        public void GeneratePdfFile(NfseRetorno nfse, string outputFilePath, DadosMunicipio dadosMun = null, bool isHomologacao = true)
+        /// <summary>
+        /// Gera o PDF do DANFSe e grava em arquivo.
+        /// </summary>
+        /// <param name="versao">Versão do layout do DANFSe. Default: <see cref="DanfseVersao.V2_0"/>.</param>
+        public void GeneratePdfFile(NfseRetorno nfse, string outputFilePath, DadosMunicipio dadosMun = null, bool isHomologacao = true, DanfseVersao versao = DanfseVersao.V2_0)
         {
-            byte[] bytes = GeneratePdfBytes(nfse, dadosMun, isHomologacao);
+            byte[] bytes = GeneratePdfBytes(nfse, dadosMun, isHomologacao, versao);
             File.WriteAllBytes(outputFilePath, bytes);
         }
 
-        private void RenderPage(XGraphics gfx, InfNFSe inf, DadosMunicipio mun, bool isHomologacao)
+        private void RenderPageV1(XGraphics gfx, InfNFSe inf, DadosMunicipio mun, bool isHomologacao)
         {
             var dps = inf.Dps?.InfDps;
 

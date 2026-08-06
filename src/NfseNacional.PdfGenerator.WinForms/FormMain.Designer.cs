@@ -33,6 +33,8 @@ namespace NfseNacional.PdfGenerator.WinForms
             txtMunBrasao = new TextBox();
             btnSelectBrasao = new Button();
             lblXml = new Label();
+            lblVersao = new Label();
+            cmbVersao = new ComboBox();
             lblAmbiente = new Label();
             cmbAmbiente = new ComboBox();
             btnLoadXml = new Button();
@@ -117,6 +119,8 @@ namespace NfseNacional.PdfGenerator.WinForms
             // 
             tabGerarPdf.Controls.Add(grpMun);
             tabGerarPdf.Controls.Add(lblXml);
+            tabGerarPdf.Controls.Add(lblVersao);
+            tabGerarPdf.Controls.Add(cmbVersao);
             tabGerarPdf.Controls.Add(lblAmbiente);
             tabGerarPdf.Controls.Add(cmbAmbiente);
             tabGerarPdf.Controls.Add(btnLoadXml);
@@ -285,9 +289,31 @@ namespace NfseNacional.PdfGenerator.WinForms
             lblXml.Size = new Size(202, 17);
             lblXml.TabIndex = 1;
             lblXml.Text = "Conteúdo XML (NFSe Retorno):";
-            // 
+            //
+            // lblVersao
+            //
+            lblVersao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblVersao.AutoSize = true;
+            lblVersao.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblVersao.Location = new Point(216, 176);
+            lblVersao.Name = "lblVersao";
+            lblVersao.Size = new Size(50, 15);
+            lblVersao.TabIndex = 7;
+            lblVersao.Text = "Versão:";
+            //
+            // cmbVersao
+            //
+            cmbVersao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cmbVersao.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbVersao.FormattingEnabled = true;
+            cmbVersao.Items.AddRange(new object[] { "DANFSe 2.0 (Padrão Nacional)", "DANFSe 1.0 (Layout anterior)" });
+            cmbVersao.Location = new Point(268, 173);
+            cmbVersao.Name = "cmbVersao";
+            cmbVersao.Size = new Size(112, 23);
+            cmbVersao.TabIndex = 8;
+            //
             // lblAmbiente
-            // 
+            //
             lblAmbiente.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblAmbiente.AutoSize = true;
             lblAmbiente.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
@@ -849,6 +875,8 @@ namespace NfseNacional.PdfGenerator.WinForms
         private System.Windows.Forms.Button btnSelectBrasao;
         private System.Windows.Forms.TextBox txtXml;
         private System.Windows.Forms.Label lblXml;
+        private System.Windows.Forms.Label lblVersao;
+        private System.Windows.Forms.ComboBox cmbVersao;
         private System.Windows.Forms.Label lblAmbiente;
         private System.Windows.Forms.ComboBox cmbAmbiente;
         private System.Windows.Forms.Button btnLoadXml;

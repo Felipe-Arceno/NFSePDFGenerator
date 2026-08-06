@@ -24,6 +24,7 @@ namespace NfseNacional.PdfGenerator.WinForms
         {
             InitializeComponent();
             cmbAmbiente.SelectedIndex = 0; // Homologação por padrão
+            cmbVersao.SelectedIndex = 0;   // DANFSe 2.0 (padrão nacional) por padrão
 
             // Inicializa repositórios na pasta do executável
             string dataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dados_municipios");
@@ -215,8 +216,9 @@ namespace NfseNacional.PdfGenerator.WinForms
 
                     // 3. Gera o PDF
                     bool isHomologacao = cmbAmbiente.SelectedIndex == 0; // 0 = Homologação, 1 = Produção
+                    DanfseVersao versao = cmbVersao.SelectedIndex == 1 ? DanfseVersao.V1_0 : DanfseVersao.V2_0; // 0 = v2.0 (padrão), 1 = v1.0
                     var generator = new DanfsePdfGenerator();
-                    generator.GeneratePdfFile(nfse, saveFileDialog.FileName, dadosMun, isHomologacao);
+                    generator.GeneratePdfFile(nfse, saveFileDialog.FileName, dadosMun, isHomologacao, versao);
 
                     // 4. Salva no Histórico na estrutura PATH_BASE/AAAA/MM/DD/GUID/
                     try
