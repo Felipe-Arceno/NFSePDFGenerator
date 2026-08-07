@@ -151,37 +151,40 @@ namespace NfseNacional.PdfGenerator.Lib.Pdf
                 gfx.DrawString(s, f, b, (float)(cx - w / 2f), y);
             }
 
-            // ============ Borda externa (recuada para dar margem à impressão) ============
-            gfx.DrawRectangle(penBorder, 13f, 6f, 569f, 830f);
+            // Folga vertical (topo) para não cortar o cabeçalho na impressão física.
+            float topMargin = 12f;
+
+            // ============ Borda externa (recuada nas 4 bordas para margem de impressão) ============
+            gfx.DrawRectangle(penBorder, 13f, 14f, 569f, 812f);
 
             // ============ 1. Cabeçalho ============
             // Logo textual "NFSe"
             float logoX = V2Left - 2f;
-            gfx.DrawString("NFS", fLogo, brushGreen, logoX, 28f);
+            gfx.DrawString("NFS", fLogo, brushGreen, logoX, 28f + topMargin);
             double nfsW = gfx.MeasureString("NFS", fLogo).Width;
-            gfx.DrawString("e", fLogo, brushBlue, logoX + (float)nfsW + 1f, 28f);
-            gfx.DrawString("Nota Fiscal de", fLogoSub, brushGray, logoX + (float)nfsW + 16f, 19f);
-            gfx.DrawString("Serviço eletrônica", fLogoSub, brushGray, logoX + (float)nfsW + 16f, 27f);
+            gfx.DrawString("e", fLogo, brushBlue, logoX + (float)nfsW + 1f, 28f + topMargin);
+            gfx.DrawString("Nota Fiscal de", fLogoSub, brushGray, logoX + (float)nfsW + 16f, 19f + topMargin);
+            gfx.DrawString("Serviço eletrônica", fLogoSub, brushGray, logoX + (float)nfsW + 16f, 27f + topMargin);
 
             // Título central
-            CenterString("DANFSe v2.0", fTitle, black, pageCx, 18f);
-            CenterString("Documento Auxiliar da NFS-e", fSub, black, pageCx, 30f);
+            CenterString("DANFSe v2.0", fTitle, black, pageCx, 18f + topMargin);
+            CenterString("Documento Auxiliar da NFS-e", fSub, black, pageCx, 30f + topMargin);
             if (isHomologacao)
-                CenterString("NFS-e SEM VALIDADE JURÍDICA", fSub, brushWarning, pageCx, 41f);
+                CenterString("NFS-e SEM VALIDADE JURÍDICA", fSub, brushWarning, pageCx, 41f + topMargin);
 
             // Bloco direito
             string ufEmit = !string.IsNullOrWhiteSpace(emitEnd?.Uf) ? emitEnd.Uf : DanfseV2Helper.ResolveUf(emitEnd?.CMun ?? inf.CLocIncid);
             string municipioHdr = $"Município: {ValueFormatter.FormatOrDash(inf.XLocEmi)} - {ufEmit}";
             float hdrRx = V2Cols[3] + 3f;
             float hdrRw = V2Right - hdrRx - 1f;
-            gfx.DrawString(Fit(municipioHdr, fSmall, hdrRw), fSmall, black, hdrRx, 16f);
-            gfx.DrawString(Fit($"Ambiente Gerador: {ValueFormatter.FormatOrDash(inf.AmbGer)}", fSmall, hdrRw), fSmall, black, hdrRx, 25f);
-            gfx.DrawString(Fit($"Tipo de Ambiente: {ValueFormatter.FormatOrDash(dps?.TpAmb ?? inf.TpEmis)}", fSmall, hdrRw), fSmall, black, hdrRx, 34f);
+            gfx.DrawString(Fit(municipioHdr, fSmall, hdrRw), fSmall, black, hdrRx, 16f + topMargin);
+            gfx.DrawString(Fit($"Ambiente Gerador: {ValueFormatter.FormatOrDash(inf.AmbGer)}", fSmall, hdrRw), fSmall, black, hdrRx, 25f + topMargin);
+            gfx.DrawString(Fit($"Tipo de Ambiente: {ValueFormatter.FormatOrDash(dps?.TpAmb ?? inf.TpEmis)}", fSmall, hdrRw), fSmall, black, hdrRx, 34f + topMargin);
 
-            HLine(46f);
+            HLine(46f + topMargin);
 
             // ============ 2. Chave de Acesso + QR ============
-            float yBlockTop = 46f;
+            float yBlockTop = 46f + topMargin;
             // Chave (região esquerda)
             gfx.DrawString("CHAVE DE ACESSO DA NFS-e", fLabel, black, V2Left + 2, yBlockTop + 6.5f);
             gfx.DrawString(Fit(ValueFormatter.FormatOrDash(inf.ChaveAcesso), fKey, (V2Cols[3] - V2Left) - 6), fKey, black, V2Left + 2, yBlockTop + 15f);
@@ -396,7 +399,8 @@ namespace NfseNacional.PdfGenerator.Lib.Pdf
             y += 22f; HLine(y);
 
             // ============ 12. Rodapé (identificação / assinatura) ============
-            float fy = 792f;
+            // Recuado da base para não cortar na impressão física.
+            float fy = 786f;
             float f1 = 205f, f2 = 398f;
             gfx.DrawRectangle(penThin, V2Left, fy, V2Right - V2Left, 26f);
             VLine(f1, fy, fy + 26f);

@@ -9,8 +9,9 @@
 
     <!-- Configurações do Pacote NuGet -->
     <PackageId>NfseNacional.PdfGenerator</PackageId>
-    <Version>1.1.0</Version>
-    <PackageReleaseNotes>1.1.0: Novo layout DANFSe v2.0 (padrão nacional atual) selecionável via enum DanfseVersao, sendo v2.0 o default; layout v1.0 mantido. Suporte a IBS/CBS, descrição do serviço multilinha, telefone e Red. Alíquota espelhando o portal, e margem lateral maior para impressão. Retrocompatível (parâmetro 'versao' opcional no fim das APIs).</PackageReleaseNotes>
+    <Version>1.1.1</Version>
+    <PackageReleaseNotes>1.1.1: Refinamentos do layout DANFSe v2.0 auditados contra PDFs oficiais - descrição do serviço em múltiplas linhas, telefone do prestador e "Red. Alíquota IBS/CBS" espelhando o portal, e margens de impressão maiores nas 4 bordas (evita corte ao imprimir).
+1.1.0: Novo layout DANFSe v2.0 (padrão nacional atual) selecionável via enum DanfseVersao, sendo v2.0 o default; layout v1.0 mantido. Suporte a IBS/CBS. Retrocompatível (parâmetro 'versao' opcional no fim das APIs).</PackageReleaseNotes>
     <Authors>Felipe Arceno</Authors>
     <Company>Felipe Arceno</Company>
     <Product>NfseNacional.PdfGenerator</Product>

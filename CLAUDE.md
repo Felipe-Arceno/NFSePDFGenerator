@@ -183,10 +183,14 @@ Todos os valores acima foram **conferidos numericamente** e batem com o PDF de r
   outros. Para municípios fora da tabela (ex.: Caucaia/CE), a **UF** é derivada do prefixo
   do código IBGE e o **nome** cai em fallback (`xLocalidadeIncid` do XML, quando bate com o
   código; senão o próprio código). Para cobertura nacional completa, **expandir** a tabela.
-- **Margem lateral (impressão)**: o v2.0 usa margem de **~18pt (≈6,3mm)** de cada lado
-  (`V2Left=18`, `V2Right=577`, colunas simétricas em torno de 297.5, borda recuada
-  para `13,6,569,830`). Isso evita que impressoras físicas cortem o início da primeira
-  letra. Para ajustar, altere `V2Left`/`V2Right` e o `V2Cols` em `DanfsePdfGeneratorV2.cs`.
+- **Margens de impressão (4 bordas)**: o v2.0 recua o conteúdo em todas as bordas para
+  não ser cortado por impressoras físicas:
+  - Laterais: `V2Left=18`, `V2Right=577` (colunas simétricas em torno de 297.5).
+  - Topo: `topMargin=12` somado ao cabeçalho e ao `yBlockTop` (todo o corpo flui a partir daí).
+  - Base: rodapé em `fy=786`.
+  - Borda externa recuada para `13,14,569,812` (topo y=14, base y=826).
+  Para ajustar, altere `V2Left`/`V2Right`/`V2Cols`, `topMargin`, `fy` e o retângulo da borda
+  em `DanfsePdfGeneratorV2.cs`.
 - **Página única**: o conteúdo do v2.0 termina ~y=534 pt e o rodapé fica em y=792 pt,
   cabendo folgado em 1 página A4. Se surgirem descrições muito longas, elas são truncadas
   com "…" (função `Fit`) — ajuste larguras/линhas se precisar de multilinha.
